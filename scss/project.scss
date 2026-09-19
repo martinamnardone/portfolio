@@ -769,7 +769,10 @@
 
 /* research personas */
 .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-@include bp(card) { .persona-grid { grid-template-columns: 1fr; } }
+@include bp(card) {
+  .persona-grid { display: flex; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+  .persona { flex: 0 0 82%; max-width: 320px; scroll-snap-align: start; }
+}
 .persona { border: 1px solid var(--line); border-top: 2px solid var(--accent-color, var(--ink)); border-radius: 14px; padding: 22px; background: #E9F1FF; }
 .persona-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 .persona-avatar {
@@ -810,6 +813,7 @@
 
 /* ---- JoJob as-is / to-be journeys (three columns) ---- */
 .jj-journeys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; grid-auto-rows: 1fr; }
+.jj-jrow { display: contents; }
 .jj-jcard { border: 1px solid var(--line); padding: 16px 16px 8px; }
 .jj-asis { background: #F5F8FE; }
 .jj-tobe { background: #E9F1FF; border-top: 2px solid var(--accent-color, var(--ink)); }
@@ -824,4 +828,9 @@
 .jj-jp-emo::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; }
 .jj-asis .jj-jp-emo { color: var(--ink-soft); }
 .jj-tobe .jj-jp-emo { color: var(--accent-color, var(--ink)); }
-@media (max-width: 860px) { .jj-journeys { grid-template-columns: 1fr; grid-auto-rows: auto; } }
+@media (max-width: 860px) {
+  .jj-journeys { display: block; }
+  .jj-jrow { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+  .jj-jrow + .jj-jrow { margin-top: 16px; }
+  .jj-jrow .jj-jcard { flex: 0 0 80%; max-width: 300px; scroll-snap-align: start; }
+}
