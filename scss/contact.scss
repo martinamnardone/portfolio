@@ -1,0 +1,149 @@
+// ============================================================
+//  contact.scss  →  css/contact.css   (contact form — required)
+//  Form + grid use Bootstrap; controls restyled on-brand.
+// ============================================================
+@use "tokens" as *;
+
+.contact-hero {
+  padding-top: 128px;
+  padding-bottom: 8px;
+
+  .eyebrow { display: inline-block; margin-bottom: 18px; }
+  h1 { max-width: 720px; }
+  .lede { margin-top: 20px; }
+}
+
+.contact-body { padding-block: clamp(36px, 5vw, 64px) clamp(56px, 8vw, 96px); }
+
+/* form */
+.contact-form {
+  .form-label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  // restyle Bootstrap controls to match the site
+  .form-control,
+  .form-select {
+    width: 100%;
+    border: 1px solid var(--line-strong);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: 15px;
+    padding: 13px 14px;
+    box-shadow: none;
+    transition: border-color .2s var(--ease);
+
+    &:focus {
+      border-color: var(--ink);
+      box-shadow: none;
+      outline: none;
+    }
+    &::placeholder { color: var(--ink-faint); }
+  }
+  textarea.form-control { min-height: 160px; resize: vertical; }
+
+  .invalid-feedback {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: .02em;
+    color: var(--cherry);
+  }
+  .was-validated .form-control:invalid,
+  .form-control.is-invalid { border-color: var(--cherry); }
+
+  // honeypot — hidden from humans, catches bots
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px; height: 1px;
+    overflow: hidden;
+  }
+
+  .form-check-label { font-size: 13px; color: var(--ink-soft); }
+  .form-check-input { border-radius: 0; }
+  .form-check-input:checked { background-color: var(--ink); border-color: var(--ink); }
+}
+
+.form-status {
+  margin-top: 18px;
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  letter-spacing: .02em;
+  padding: 14px 16px;
+  border-left: 2px solid var(--ink);
+  background: #F0F0F0;
+
+  &[hidden] { display: none; }
+  &.is-error { border-left-color: var(--cherry); color: var(--cherry); }
+  &.is-ok { border-left-color: var(--emerald); }
+}
+
+/* aside */
+.contact-aside {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(20px, 3vw, 40px);
+}
+.contact-aside-block { margin-bottom: 30px; }
+.contact-aside-block .label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: block;
+  margin-bottom: 10px;
+}
+.contact-aside-block a {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: .03em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 2px;
+
+  &:hover { border-color: var(--ink); }
+}
+.contact-aside-block p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
+@include bp(wide) {
+  .contact-aside {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+    margin-top: 40px;
+  }
+}
+
+/* centered form layout */
+.contact-doc { max-width: 640px; margin: 0 auto; }
+.contact-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 52px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+
+  .label {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 8px;
+  }
+  p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+  a { color: var(--ink); border-bottom: 1px solid var(--line-strong); padding-bottom: 1px; }
+  a:hover { border-color: var(--ink); }
+
+  @include bp(nav) { grid-template-columns: 1fr; gap: 20px; }
+}

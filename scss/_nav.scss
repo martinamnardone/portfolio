@@ -1,0 +1,105 @@
+@use "tokens" as *;
+
+/* ---------- sticky top nav ---------- */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px var(--gutter);
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+  border-bottom: 1px solid transparent;
+
+  &.is-scrolled {
+    background: rgba(250, 250, 250, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom-color: var(--line);
+  }
+}
+
+.nav-mark {
+  display: inline-flex;
+  align-items: center;
+
+  img {
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+}
+
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+  list-style: none;
+
+  a {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 4px;
+    color: var(--ink-soft);
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 1px;
+      background: var(--ink);
+      transition: width .25s var(--ease);
+    }
+    &:hover { color: var(--ink); }
+    &:hover::after,
+    &.active::after { width: 100%; }
+    &.active { color: var(--ink); }
+  }
+}
+
+.nav-toggle { display: none; margin-left: auto; }
+
+/* ---------- mobile: slide-in panel + hamburger ---------- */
+@include bp(lg) {
+  .nav-links {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh; width: 78vw; max-width: 320px;
+    background: var(--surface);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 26px;
+    padding: 0 36px;
+    transform: translateX(100%);
+    transition: transform .4s var(--ease);
+    border-left: 1px solid var(--line);
+
+    &.open { transform: translateX(0); }
+    a { font-size: 13px; }
+  }
+
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    width: 30px; height: 22px;
+    background: none; border: none; cursor: pointer;
+    z-index: 200;
+
+    span {
+      height: 1px; width: 100%;
+      background: var(--ink);
+      transition: transform .3s var(--ease), opacity .3s var(--ease);
+    }
+    &.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    &.is-open span:nth-child(2) { opacity: 0; }
+    &.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  }
+}

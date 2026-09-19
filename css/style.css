@@ -1,0 +1,500 @@
+@charset "UTF-8";
+/* ============================================================
+   MARTINA NARDONE — PORTFOLIO
+   Nordic minimal. Cold neutrals + one electric accent per project.
+   Authored in Sass — edit the .scss, never the compiled .css.
+   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+:root {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --ink: #0E0E10;
+  --ink-soft: #5A5C63;
+  --ink-faint: #9B9DA3;
+  --line: rgba(14, 14, 16, 0.1);
+  --line-strong: rgba(14, 14, 16, 0.22);
+  --blue: #2D5BFF;
+  --violet: #6C3CE9;
+  --emerald: #00B89F;
+  --cherry: #E0103A;
+  --accent: #0E0E10;
+  --f-sans: Inter, -apple-system, sans-serif;
+  --f-mono: JetBrains Mono, monospace;
+  --gutter: clamp(20px, 5vw, 64px);
+  --maxw: 1360px;
+  --radius: 0px;
+  --ease: cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+::selection {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ---------- custom frozen-glass cursor ---------- */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(250, 250, 250, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid var(--cursor-color, var(--ink));
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: background 0.2s var(--ease), opacity 0.2s var(--ease), border-color 0.2s var(--ease);
+  opacity: 0;
+  mix-blend-mode: normal;
+}
+.custom-cursor.is-active {
+  opacity: 1;
+}
+.custom-cursor.is-hovering {
+  background: var(--cursor-color, var(--ink));
+}
+
+[data-page-accent=blue] {
+  --cursor-color: #2D5BFF;
+}
+
+[data-page-accent=violet] {
+  --cursor-color: #6C3CE9;
+}
+
+[data-page-accent=emerald] {
+  --cursor-color: #00B89F;
+}
+
+[data-page-accent=cherry] {
+  --cursor-color: #E0103A;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    display: none;
+  }
+}
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button {
+  cursor: none;
+}
+
+/* ---------- type ---------- */
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h1, .h1 {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h2, .h2 {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: clamp(23px, 2.6vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+h3, .h3 {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.3;
+}
+
+.lede {
+  font-size: clamp(16px, 1.1vw, 17px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 560px;
+  font-weight: 400;
+}
+
+p.body, .body-text {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 580px;
+  line-height: 1.65;
+}
+
+.cap {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+/* ---------- layout ---------- */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+section {
+  position: relative;
+  scroll-margin-top: 130px;
+}
+
+.section-pad {
+  padding-top: clamp(56px, 8vw, 120px);
+  padding-bottom: clamp(56px, 8vw, 120px);
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  width: 100%;
+}
+
+/* ---------- reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.no-js .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- misc ---------- */
+.tag {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+}
+
+/* coming-soon cursor state (label follows the pointer) */
+.custom-cursor.is-soon {
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  padding: 7px 12px;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- sticky top nav ---------- */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px var(--gutter);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.site-nav.is-scrolled {
+  background: rgba(250, 250, 250, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom-color: var(--line);
+}
+
+.nav-mark {
+  display: inline-flex;
+  align-items: center;
+}
+.nav-mark img {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 4px;
+  color: var(--ink-soft);
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ink);
+  transition: width 0.25s var(--ease);
+}
+.nav-links a:hover {
+  color: var(--ink);
+}
+.nav-links a:hover::after, .nav-links a.active::after {
+  width: 100%;
+}
+.nav-links a.active {
+  color: var(--ink);
+}
+
+.nav-toggle {
+  display: none;
+  margin-left: auto;
+}
+
+/* ---------- mobile: slide-in panel + hamburger ---------- */
+@media (max-width: 720px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 78vw;
+    max-width: 320px;
+    background: var(--surface);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 26px;
+    padding: 0 36px;
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease);
+    border-left: 1px solid var(--line);
+  }
+  .nav-links.open {
+    transform: translateX(0);
+  }
+  .nav-links a {
+    font-size: 13px;
+  }
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    width: 30px;
+    height: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 200;
+  }
+  .nav-toggle span {
+    height: 1px;
+    width: 100%;
+    background: var(--ink);
+    transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  }
+  .nav-toggle.is-open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .nav-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.is-open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+}
+/* ---------- buttons / links ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 13px 22px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.text-link {
+  position: relative;
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  opacity: 0.3;
+  transition: opacity 0.25s var(--ease);
+}
+.text-link:hover::after {
+  opacity: 1;
+}
+
+/* ---------- footer: compact, dark, reveals on scroll ---------- */
+.site-footer {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 40px var(--gutter) 34px;
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-logo {
+  width: 50px;
+  height: auto;
+  filter: brightness(0) invert(1); /* renders any logo file white on the dark footer */
+}
+
+.footer-copy {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(250, 250, 250, 0.5);
+}
+
+.footer-cols {
+  display: flex;
+  gap: clamp(36px, 6vw, 80px);
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-col .label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250, 250, 250, 0.4);
+  margin-bottom: 3px;
+}
+.footer-col a {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: rgba(250, 250, 250, 0.8);
+  border-bottom: 1px solid rgba(250, 250, 250, 0.35);
+  padding-bottom: 2px;
+  width: fit-content;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.footer-col a:hover {
+  color: var(--bg);
+  border-bottom-color: var(--bg);
+}

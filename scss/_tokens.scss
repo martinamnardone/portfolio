@@ -1,0 +1,68 @@
+// ============================================================
+//  TOKENS — Sass variables, maps & mixins (no CSS output)
+//  Imported by every entry file with `@use 'tokens' as *;`
+// ============================================================
+@use "sass:map";
+
+// ---- neutrals (cold, near-white / near-black) ----
+$bg:          #FAFAFA;
+$surface:     #FFFFFF;
+$ink:         #0E0E10;
+$ink-soft:    #5A5C63;
+$ink-faint:   #9B9DA3;
+$line:        rgba(14, 14, 16, 0.10);
+$line-strong: rgba(14, 14, 16, 0.22);
+
+// ---- project accents (electric, cold) ----
+$blue:    #2D5BFF;
+$violet:  #6C3CE9;
+$emerald: #00B89F;
+$cherry:  #E0103A;
+
+// map used by @each loops (cursor, work cards, project accents)
+$accents: (
+  "blue":    $blue,
+  "violet":  $violet,
+  "emerald": $emerald,
+  "cherry":  $cherry,
+);
+
+// per-project hero gradients + accent text colour
+$accent-grads: (
+  "blue":    linear-gradient(135deg, #6FA0FF 0%, #2D5BFF 55%, #1530A6 100%),
+  "violet":  linear-gradient(135deg, #B79CF2 0%, #6C3CE9 55%, #2E1768 100%),
+  "emerald": linear-gradient(135deg, #7FE8D6 0%, #00B89F 55%, #00513F 100%),
+  "cherry":  linear-gradient(135deg, #FF8FA3 0%, #E0103A 55%, #5C0317 100%),
+);
+
+// ---- type ----
+$f-sans: 'Inter', -apple-system, sans-serif;
+$f-mono: 'JetBrains Mono', monospace;
+
+// ---- spacing / layout ----
+$gutter: clamp(20px, 5vw, 64px);
+$maxw:   1360px;
+$radius: 0px;
+$ease:   cubic-bezier(.16, .8, .24, 1);
+
+// ---- breakpoints ----
+$bp: (
+  sm:   520px,
+  md:   560px,
+  nav:  700px,
+  lg:   720px,
+  card: 800px,
+  hero: 860px,
+  proj: 980px,
+  wide: 1000px,
+  xl:   1300px,
+);
+
+// max-width media query helper — @include bp(hero) { ... }
+@mixin bp($name) {
+  @if map.has-key($bp, $name) {
+    @media (max-width: map.get($bp, $name)) { @content; }
+  } @else {
+    @media (max-width: $name) { @content; }
+  }
+}

@@ -1,0 +1,8 @@
+// ============================================================
+//  main.scss  →  compiles to  css/style.css
+//  Global stylesheet loaded on every page.
+// ============================================================
+@use "base";
+@use "nav";
+@use "buttons";
+@use "footer";

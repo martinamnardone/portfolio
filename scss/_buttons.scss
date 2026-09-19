@@ -1,0 +1,38 @@
+@use "tokens" as *;
+
+/* ---------- buttons / links ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 13px 22px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  transition: background .25s var(--ease), color .25s var(--ease);
+
+  &:hover { background: var(--ink); color: var(--bg); }
+}
+
+.text-link {
+  position: relative;
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -3px;
+    height: 1px; width: 100%;
+    background: currentColor;
+    opacity: .3;
+    transition: opacity .25s var(--ease);
+  }
+  &:hover::after { opacity: 1; }
+}
