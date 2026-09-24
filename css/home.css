@@ -308,3 +308,10 @@
   text-transform: uppercase;
   padding: 6px 12px;
 }
+
+
+/* GGI coming-soon: muted image + persistent label (visible on mobile too, where there is no cursor) */
+.work-block.coming-soon .work-media { position: relative; }
+.work-block.coming-soon .work-media img { filter: grayscale(0.3) blur(2px); opacity: 0.72; }
+.work-block.coming-soon:hover .work-media img { transform: none; }
+.work-block.coming-soon .work-soon { z-index: 2; border-radius: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
